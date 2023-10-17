@@ -2,6 +2,8 @@
 
 This project is designed to assess your Google Cloud Platform (GCP) skills, including expertise in Networking, Databases, Development, Terraform, Docker, and Kubernetes. In this project, you will deploy a simple stateless Node.js web application that interacts with a highly available MongoDB, which is replicated across three zones and consists of one primary and two secondaries.
 
+![GCP Project Image](GCP-ITI.png)
+
 ## Project Overview
 
 1. **Infrastructure Setup**
