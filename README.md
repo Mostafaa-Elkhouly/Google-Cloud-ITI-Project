@@ -53,6 +53,6 @@ To get started with this project, follow these steps:
 
 ## Author
 
-[Mostafa Elkhouly]
+Mostafa Elkhouly
 
-For any questions or assistance, please contact [mostafa.elkhouly97@gmail.com].
+For any questions or assistance, please contact mostafa.elkhouly97@gmail.com.
