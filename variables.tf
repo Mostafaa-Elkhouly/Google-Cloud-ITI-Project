@@ -5,3 +5,11 @@ variable "project_id" {
 variable "work_region" {
   type = string
 }
+
+variable "subnets_cidr_list" {
+  type = list(any)
+}
+
+variable "regions_list" {
+  type = list(any)
+}

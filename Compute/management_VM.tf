@@ -1,0 +1,27 @@
+resource "google_compute_instance" "management_vm" {
+  name         = "management-instance"
+  machine_type = "n2-standard-2"
+  zone         = "${var.vm_region}-b"
+
+  tags = ["management-vm"]
+
+  boot_disk {
+    initialize_params {
+      image = "debian-cloud/debian-11"
+    }
+  }
+
+  network_interface {
+    network = var.vpc_network_name
+    subnetwork = var.vm_subnet
+    #remove access_config {} to prevent a public IP address
+  }
+
+  metadata_startup_script = "echo hi > /test.txt"
+
+  service_account {
+    # Google recommends custom service accounts that have cloud-platform scope and permissions granted via IAM Roles.
+    email = var.instance_sa_email
+    scopes = ["cloud-platform"]
+  }
+}
