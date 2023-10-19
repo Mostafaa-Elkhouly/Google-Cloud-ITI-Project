@@ -1,9 +1,9 @@
 resource "google_compute_instance" "management_vm" {
   name         = "management-instance"
-  machine_type = "n2-standard-2"
+  machine_type = "e2-medium"
   zone         = "${var.vm_region}-b"
-
   tags = ["management-vm"]
+  allow_stopping_for_update = true
 
   boot_disk {
     initialize_params {
@@ -20,7 +20,6 @@ resource "google_compute_instance" "management_vm" {
   metadata_startup_script = "echo hi > /test.txt"
 
   service_account {
-    # Google recommends custom service accounts that have cloud-platform scope and permissions granted via IAM Roles.
     email = var.instance_sa_email
     scopes = ["cloud-platform"]
   }

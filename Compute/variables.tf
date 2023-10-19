@@ -1,6 +1,6 @@
 #Compute Module Input Arguments
 variable "instance_sa_email" {
-  description = "The email address of the service account from the IAM module"
+  description = "The email address of the instance service account from the IAM module"
   type        = string
 }
 
