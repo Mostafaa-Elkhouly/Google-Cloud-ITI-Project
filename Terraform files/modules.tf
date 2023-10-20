@@ -8,6 +8,7 @@ module "network_module" {
 module "IAM_module" {
   source     = "./IAM"
   project_id = var.project_id
+  vm_roles   = var.vm_roles
 }
 
 module "compute_module" {
@@ -19,13 +20,14 @@ module "compute_module" {
 }
 
 module "storage_module" {
-  source = "./Storage"
+  source       = "./Storage"
+  subnets_list = module.network_module.subnets_list
 }
 
 module "GKE_module" {
-  source                     = "./GKE"
-  vpc_network_name           = module.network_module.vpc_network_name
-  subnets_list               = module.network_module.subnets_list
-  my_public_ip               = module.network_module.my_public_ip
+  source           = "./GKE"
+  vpc_network_name = module.network_module.vpc_network_name
+  subnets_list     = module.network_module.subnets_list
+  my_public_ip     = module.network_module.my_public_ip
   cluster_sa_email = module.IAM_module.cluster_sa_email
 }

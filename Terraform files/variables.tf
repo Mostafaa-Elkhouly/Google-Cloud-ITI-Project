@@ -13,3 +13,7 @@ variable "subnets_cidr_list" {
 variable "regions_list" {
   type = list(any)
 }
+
+variable "vm_roles" {
+  type = list(any)
+}
