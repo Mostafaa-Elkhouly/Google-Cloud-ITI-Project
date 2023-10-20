@@ -4,7 +4,7 @@ output "instance_sa_email" {
   value       = google_service_account.instance_sa.email
 }
 
-output "cluster_instances_sa_email" {
+output "cluster_sa_email" {
   description = "The email address of the GKE Cluster instances service account"
-  value       = google_service_account.cluster_instances_sa.email
+  value       = google_service_account.cluster_sa.email
 }

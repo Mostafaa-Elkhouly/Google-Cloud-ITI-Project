@@ -13,7 +13,6 @@ resource "google_compute_firewall" "allow_ssh" {
     ports    = ["22"]
   }
 
-  #source_ranges = ["156.161.57.156/32"]
   source_ranges = ["${data.http.my_public_ip.response_body}/32"]
   target_tags = ["management-vm"]
 }

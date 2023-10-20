@@ -9,12 +9,12 @@ variable "vpc_network_name" {
   type        = string
 }
 
-variable "vm_subnet"{
+variable "vm_subnet" {
   description = "Subnet name of the VM instance from the Network module"
-  type = string
+  type        = string
 }
 
 variable "vm_region" {
   description = "The VM instance region"
-  type = string
+  type        = string
 }

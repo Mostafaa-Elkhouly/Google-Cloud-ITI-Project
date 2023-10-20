@@ -14,7 +14,7 @@ variable "my_public_ip" {
   type = string
 }
 
-variable "cluster_instances_sa_email" {
+variable "cluster_sa_email" {
   description = "The email address of the GKE Cluster instances service account from the IAM module"
   type        = string
 }
