@@ -30,3 +30,14 @@ spec:
               secretKeyRef:
                 name: mongodb-credentials
                 key: password
+        command:
+          - "sh"
+          - "-c"
+          - >
+            echo "$replicaSetConfig" > /tmp/rs0.js &&
+            mongod --replSet rs0 --bind_ip 0.0.0.0 &&
+            sleep 10 &&
+            mongo --eval "rs.initiate()" &&
+            mongo --eval "rs.reconfig(JSON.parse(cat('/tmp/rs0.js')))"
+
+
