@@ -6,10 +6,10 @@ module "network_module" {
 }
 
 module "IAM_module" {
-  source     = "./IAM"
-  project_id = var.project_id
-  vm_roles   = var.vm_roles
-  cluster_roles   = var.cluster_roles
+  source        = "./IAM"
+  project_id    = var.project_id
+  vm_roles      = var.vm_roles
+  cluster_roles = var.cluster_roles
 }
 
 module "compute_module" {

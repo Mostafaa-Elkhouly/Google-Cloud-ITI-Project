@@ -14,6 +14,6 @@ sudo systemctl enable docker
 
 # git clone https://github.com/Mostafaa-Elkhouly/Google-Cloud-ITI-Project.git
 # docker build -t node-app:v1 .
-# docker tag node-app:latest us-central1-docker.pkg.dev/swift-radar-399606/my-repo/node-app:v1
+# docker tag node-app:v1 us-central1-docker.pkg.dev/swift-radar-399606/my-repo/node-app:v1
 # gcloud auth configure-docker us-central1-docker.pkg.dev
 # docker push us-central1-docker.pkg.dev/swift-radar-399606/my-repo/node-app:v1
