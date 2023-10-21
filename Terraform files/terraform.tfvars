@@ -6,8 +6,6 @@ regions_list      = ["us-central1", "us-east1"]
 vm_roles = [
   "roles/container.admin",        # Manage GKE Cluster
   "roles/artifactregistry.writer" # Tag and push images
-  #"roles/artifactregistry.admin",    # Administrator access to create and manage repositories.
-  #"roles/artifactregistry.repoAdmin" # Access to manage artifacts in repositories.
 ]
 cluster_roles = [
   "roles/artifactregistry.reader", # Pull images
