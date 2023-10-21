@@ -32,7 +32,7 @@ resource "google_container_node_pool" "privatecluster-node-pool" {
   name       = "my-node-pool"
   location = var.subnets_list[1].region
   cluster    = google_container_cluster.privatecluster.name
-  node_count = 3 # 1 node per zone
+  node_count = 1 # 1 node per zone
  
   node_config {
     preemptible  = true

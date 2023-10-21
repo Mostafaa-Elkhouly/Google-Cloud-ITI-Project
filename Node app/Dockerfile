@@ -1,4 +1,4 @@
-FROM node:14-alpine 
+FROM node:alpine 
 
 # Set environment variables
 ENV WEBport "3000"
