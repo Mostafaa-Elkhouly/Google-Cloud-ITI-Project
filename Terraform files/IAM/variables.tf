@@ -6,3 +6,7 @@ variable "project_id" {
 variable "vm_roles"{
   type = list(any)
 }
+
+variable "cluster_roles" {
+  type = list(any)
+}

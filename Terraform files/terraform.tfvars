@@ -5,6 +5,11 @@ subnets_cidr_list = ["192.168.1.0/24", "10.1.0.0/16"]
 regions_list      = ["us-central1", "us-east1"]
 vm_roles = [
   "roles/container.admin",           # Manage GKE Cluster
-  "roles/artifactregistry.admin",    # Administrator access to create and manage repositories.
-  "roles/artifactregistry.repoAdmin" # Access to manage artifacts in repositories.
+  "roles/artifactregistry.writer" # Tag and push images
+   #"roles/artifactregistry.admin",    # Administrator access to create and manage repositories.
+   #"roles/artifactregistry.repoAdmin" # Access to manage artifacts in repositories.
+]
+cluster_roles = [
+    "roles/artifactregistry.reader", # Pull images
+    "roles/storage.objectViewer" ,
 ]

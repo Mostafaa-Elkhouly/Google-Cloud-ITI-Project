@@ -4,7 +4,8 @@ resource "google_service_account" "cluster_sa" {
 }
 
 resource "google_project_iam_member" "cluster_sa_role" {
+  count = length(var.cluster_roles)
   project = var.project_id
-  role    = "roles/storage.objectViewer" 
+  role    = var.cluster_roles[count.index]
   member  = "serviceAccount:${google_service_account.cluster_sa.email}"
 }
