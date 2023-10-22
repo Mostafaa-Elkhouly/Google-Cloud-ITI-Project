@@ -22,8 +22,9 @@ spec:
             - name: WEBport
               value: "3000"
             - name: DBhosts
-              # value: "mongodb-0.mongodb:27017,mongodb-1.mongodb:27017,mongodb-2.mongodb:27017"
-              value: mongodb-service:27017
+              # value: "mongo-0.mongo:27017,mongo-1.mongo:27017,mongo-2.mongo:27017"
+              # "mongodb://mongo-0.mongo,mongo-1.mongo,mongo-2.mongo:27017/dbname_?"
+              value: mongo-service:27017
             - name: DBuser
               valueFrom:
                 secretKeyRef:
