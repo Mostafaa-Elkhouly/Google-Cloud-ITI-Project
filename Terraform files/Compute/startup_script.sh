@@ -13,11 +13,15 @@ sudo systemctl start docker
 sudo systemctl enable docker
 
 # git clone https://github.com/Mostafaa-Elkhouly/Google-Cloud-ITI-Project.git
-# docker build -t node-app:v1 .
-# docker tag node-app:v1 us-central1-docker.pkg.dev/swift-radar-399606/my-repo/node-app:v1
+# docker build -t node-app .
+# docker tag node-app us-central1-docker.pkg.dev/swift-radar-399606/my-repo/node-app
 # gcloud auth configure-docker us-central1-docker.pkg.dev
-# docker push us-central1-docker.pkg.dev/swift-radar-399606/my-repo/node-app:v1
+# docker push us-central1-docker.pkg.dev/swift-radar-399606/my-repo/node-app
 
 # docker pull mongo
 # docker tag mongo us-central1-docker.pkg.dev/swift-radar-399606/my-repo/mongo
 # docker push us-central1-docker.pkg.dev/swift-radar-399606/my-repo/mongo
+
+# docker pull cvallance/mongo-k8s-sidecar
+# docker tag cvallance/mongo-k8s-sidecar us-central1-docker.pkg.dev/swift-radar-399606/my-repo/cvallance/mongo-k8s-sidecar
+# docker push us-central1-docker.pkg.dev/swift-radar-399606/my-repo/cvallance/mongo-k8s-sidecar
