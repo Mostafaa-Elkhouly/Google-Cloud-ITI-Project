@@ -1,28 +1,37 @@
-apiVersion: apps/v1
+apiVersion: apps/v1beta1
 kind: StatefulSet
 metadata:
-  name: mongodb
+ name: mongo
 spec:
-  replicas: 3  
-  serviceName: "mongodb"
-  selector:
-    matchLabels:
-      app: mongodb
-      
-  template:
-    metadata:
-      labels:
-        app: mongodb
-    spec:
-      containers:
-      - name: mongo
-        image: us-central1-docker.pkg.dev/swift-radar-399606/my-repo/mongo
-        ports:
-          - containerPort: 27017
-        volumeMounts:
+ serviceName: "mongo"
+ replicas: 3
+ template:
+   metadata:
+     labels:
+       role: mongo
+       environment: test
+   spec:
+     terminationGracePeriodSeconds: 10
+     containers:
+       - name: mongo
+         image: mongo
+         command:
+           - mongod
+           - "--replSet"
+           - rs0
+           - "--smallfiles"
+           - "--noprealloc"
+         ports:
+           - containerPort: 27017
+         volumeMounts:
            - name: mongo-persistent-storage
              mountPath: /data/db
-        env:
+       - name: mongo-sidecar
+         image: cvallance/mongo-k8s-sidecar
+         env:
+           - name: MONGO_SIDECAR_POD_LABELS
+             value: "role=mongo,environment=test"
+         env:
           - name: MONGO_INITDB_ROOT_USERNAME
             valueFrom:
               secretKeyRef:
@@ -33,19 +42,13 @@ spec:
               secretKeyRef:
                 name: mongodb-credentials
                 key: password
-        command:
-          - mongod
-          - "--replSet"
-          - rs0
-          - "--smallfiles"
-          - "--noprealloc"       
-  volumeClaimTemplates:
-  - metadata:
-      name: mongo-persistent-storage
-      annotations:
-        volume.beta.kubernetes.io/storage-class: "fast"
-    spec:
-      accessModes: [ "ReadWriteOnce" ]
-      resources:
-        requests:
-          storage: 100Gi
+ volumeClaimTemplates:
+ - metadata:
+     name: mongo-persistent-storage
+     annotations:
+       volume.beta.kubernetes.io/storage-class: "fast"
+   spec:
+     accessModes: [ "ReadWriteOnce" ]
+     resources:
+       requests:
+         storage: 100Gi
