@@ -28,11 +28,11 @@ spec:
             - name: DBuser
               valueFrom:
                 secretKeyRef:
-                  name: mongodb-credentials
+                  name: mongo-credentials
                   key: username
             - name: DBpass
               valueFrom:
                 secretKeyRef:
-                  name: mongodb-credentials
+                  name: mongo-credentials
                   key: password
 
