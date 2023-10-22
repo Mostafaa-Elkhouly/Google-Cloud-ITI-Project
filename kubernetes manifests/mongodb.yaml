@@ -19,6 +19,9 @@ spec:
         image: us-central1-docker.pkg.dev/swift-radar-399606/my-repo/mongo
         ports:
           - containerPort: 27017
+        volumeMounts:
+           - name: mongo-persistent-storage
+             mountPath: /data/db
         env:
           - name: MONGO_INITDB_ROOT_USERNAME
             valueFrom:
@@ -31,13 +34,43 @@ spec:
                 name: mongodb-credentials
                 key: password
         command:
-          - "sh"
-          - "-c"
-          - >
-            echo "$replicaSetConfig" > /tmp/rs0.js &&
-            mongod --replSet rs0 --bind_ip 0.0.0.0 &&
-            sleep 10 &&
-            mongo --eval "rs.initiate()" &&
-            mongo --eval "rs.reconfig(JSON.parse(cat('/tmp/rs0.js')))"
+          - mongod
+          - "--replSet"
+          - rs0
+          - "--smallfiles"
+          - "--noprealloc"
 
 
+
+
+   spec:
+     terminationGracePeriodSeconds: 10
+     containers:
+       - name: mongo
+         image: mongo
+         command:
+           - mongod
+           - "--replSet"
+           - rs0
+           - "--smallfiles"
+           - "--noprealloc"
+         ports:
+           - containerPort: 27017
+         volumeMounts:
+           - name: mongo-persistent-storage
+             mountPath: /data/db
+       - name: mongo-sidecar
+         image: cvallance/mongo-k8s-sidecar
+         env:
+           - name: MONGO_SIDECAR_POD_LABELS
+             value: "role=mongo,environment=test"
+  volumeClaimTemplates:
+  - metadata:
+      name: mongo-persistent-storage
+      annotations:
+        volume.beta.kubernetes.io/storage-class: "fast"
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 100Gi

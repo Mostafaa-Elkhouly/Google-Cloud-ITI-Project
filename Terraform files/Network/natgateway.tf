@@ -1,5 +1,6 @@
 resource "google_compute_router" "nat_router" {
   name    = "nat-router"
+  region  = var.regions[0]
   network = google_compute_network.vpc_network.id
 }
 
