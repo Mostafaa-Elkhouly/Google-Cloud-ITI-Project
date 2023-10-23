@@ -34,11 +34,16 @@ spec:
             - "--replSet"
             - rs0
             - "--auth"   # Enable authentication
+            - "--keyFile"
+            - /var/run/secrets/mongo-keyfile
           ports:
             - containerPort: 27017
           volumeMounts:
             - name: mongo-persistent-storage
               mountPath: /data/db
+            - name: mongo-keyfile
+              mountPath: /var/run/secrets/
+              readOnly: true
         - name: mongo-sidecar
           image: us-central1-docker.pkg.dev/swift-radar-399606/my-repo/cvallance/mongo-k8s-sidecar
           env:
@@ -54,3 +59,7 @@ spec:
       resources:
         requests:
           storage: 50Gi
+  volumes:
+  - name: mongo-keyfile
+    secret:
+      secretName: mongo-keyfile-secret
