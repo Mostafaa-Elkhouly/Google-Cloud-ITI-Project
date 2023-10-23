@@ -30,3 +30,5 @@ sudo systemctl enable docker
 # docker tag mongodb us-central1-docker.pkg.dev/swift-radar-399606/my-repo/mongodb
 # gcloud auth configure-docker us-central1-docker.pkg.dev
 # docker push us-central1-docker.pkg.dev/swift-radar-399606/my-repo/mongodb
+
+# openssl rand -base64 768 > keyfile.txt

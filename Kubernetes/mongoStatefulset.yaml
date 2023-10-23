@@ -3,23 +3,29 @@ kind: StatefulSet
 metadata:
   name: mongo
 spec:
-  serviceName: "mongo"
+  serviceName: "mongo-service"
   replicas: 3
   selector:
     matchLabels:
-      role: mongo
+      app: mongo
   template:
     metadata:
       labels:
-        role: mongo
-        environment: test
+        app: mongo
+        environment: dev
     spec:
-      serviceAccountName: cluster-service-account
+      serviceAccountName: mongo-sa
       terminationGracePeriodSeconds: 10
       containers:
         - name: mongo
-          # image: us-central1-docker.pkg.dev/swift-radar-399606/my-repo/mongo:5.0.15
           image: us-central1-docker.pkg.dev/swift-radar-399606/my-repo/mongodb
+          ports:
+            - containerPort: 27017
+          volumeMounts:
+            - name: mongo-persistent-storage
+              mountPath: /data/db 
+            - name: config-volume
+              mountPath: /etc/mongo
           env:
             - name: MONGO_INITDB_ROOT_USERNAME
               valueFrom:
@@ -32,26 +38,19 @@ spec:
                   name: mongo-credentials
                   key: password
           args:
-            - mongod
-            - "--replSepod/mongo-0t"
+            - "--replSet"
             - rs0
             - "--auth"   # Enable authentication
             - "--keyFile"
-            - "/var/mongo/keyfile/mongodb-keyfile"
-          ports:
-            - containerPort: 27017
-          volumeMounts:
-            - name: mongo-persistent-storage
-              mountPath: /data/db 
+            - "/keys/mongodb-keyfile.txt"
+
         - name: mongo-sidecar
           image: us-central1-docker.pkg.dev/swift-radar-399606/my-repo/cvallance/mongo-k8s-sidecar
           env:
             - name: MONGO_SIDECAR_POD_LABELS
-              value: "role=mongo,environment=test"
+              value: "app=mongo,environment=dev"
             - name: KUBERNETES_MONGO_SERVICE_NAME
-              value: "mongo"
-            - name: KUBE_NAMESPACE
-              value: "default"
+              value: "mongo-service"
             - name: MONGODB_USERNAME
               valueFrom:
                 secretKeyRef:
@@ -64,13 +63,18 @@ spec:
                   key: password
             - name: MONGODB_DATABASE
               value: "admin"
+      volumes:
+        - name: config-volume
+          configMap:
+            name: mongo-config
+
   volumeClaimTemplates:
   - metadata:
       name: mongo-persistent-storage
       annotations:
-        volume.beta.kubernetes.io/storage-class: "fast"
+        volume.beta.kubernetes.io/storage-class: "fast-ssd"
     spec:
       accessModes: [ "ReadWriteOnce" ]
       resources:
         requests:
-          storage: 10Gi
+          storage: 50Gi
