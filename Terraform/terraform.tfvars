@@ -8,6 +8,5 @@ vm_roles = [
   "roles/artifactregistry.writer" # Tag and push images
 ]
 cluster_roles = [
-  "roles/artifactregistry.reader", # Pull images
-  "roles/storage.objectViewer",
+  "roles/artifactregistry.reader" # Pull images
 ]

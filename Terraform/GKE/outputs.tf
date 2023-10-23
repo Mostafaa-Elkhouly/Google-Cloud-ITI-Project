@@ -1,1 +1,0 @@
-#GKE Module Output Attributes
