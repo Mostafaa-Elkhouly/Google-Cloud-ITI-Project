@@ -14,6 +14,7 @@ spec:
         role: mongo
         environment: test
     spec:
+      serviceAccountName: mongo-sa
       terminationGracePeriodSeconds: 10
       containers:
         - name: mongo
@@ -34,9 +35,9 @@ spec:
             - mongod
             - "--replSet"
             - rs0
-            # - "--auth"   # Enable authentication
-            # - "--keyFile"
-            # - /var/run/secrets/mongo-keyfile
+            - "--auth"   # Enable authentication
+            - "--keyFile"
+            - /var/mongo/keyfile/mongodb-keyfile
           ports:
             - containerPort: 27017
           volumeMounts:
@@ -47,6 +48,22 @@ spec:
           env:
             - name: MONGO_SIDECAR_POD_LABELS
               value: "role=mongo,environment=test"
+            - name: KUBERNETES _MONGO_SERVICE_NAME
+              value: "mongo"
+            - name: KUBE_NAMESPACE
+              value: "default"
+            - name: MONGODB_USERNAME
+              valueFrom:
+              secretKeyRef:
+                name: mongo-credentials
+                key: username
+            - name: MONGODB_PASSWORD
+             valueFrom:
+                secretKeyRef:
+                  name: mongo-credentials
+                  key: username
+            - name: MONGODB_DATABASE
+              value: "admin"
   volumeClaimTemplates:
   - metadata:
       name: mongo-persistent-storage
