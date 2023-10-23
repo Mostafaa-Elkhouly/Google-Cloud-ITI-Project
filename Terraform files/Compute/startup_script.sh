@@ -25,3 +25,8 @@ sudo systemctl enable docker
 # docker pull cvallance/mongo-k8s-sidecar
 # docker tag cvallance/mongo-k8s-sidecar us-central1-docker.pkg.dev/swift-radar-399606/my-repo/cvallance/mongo-k8s-sidecar
 # docker push us-central1-docker.pkg.dev/swift-radar-399606/my-repo/cvallance/mongo-k8s-sidecar
+
+# docker build -t mongodb .
+# docker tag mongodb us-central1-docker.pkg.dev/swift-radar-399606/my-repo/mongodb
+# gcloud auth configure-docker us-central1-docker.pkg.dev
+# docker push us-central1-docker.pkg.dev/swift-radar-399606/my-repo/mongodb

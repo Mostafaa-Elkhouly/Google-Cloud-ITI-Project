@@ -14,8 +14,8 @@ RUN mkdir -p /var/mongo/keyfile
 COPY mongodb-keyfile /var/mongo/keyfile/mongodb-keyfile
 
 # Set file permissions for the MongoDB keyfile
-RUN chown mongodb:mongodb /var/mongo/keyfile/mongodb-keyfile
-RUN chmod 600 /var/mongo/keyfile/mongodb-keyfile
+RUN chown 999:999 /var/mongo/keyfile/mongodb-keyfile
+RUN chmod 400 /var/mongo/keyfile/mongodb-keyfile
 
 # Expose the MongoDB port
 EXPOSE 27017
