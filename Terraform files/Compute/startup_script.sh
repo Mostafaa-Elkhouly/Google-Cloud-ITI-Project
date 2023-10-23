@@ -18,9 +18,9 @@ sudo systemctl enable docker
 # gcloud auth configure-docker us-central1-docker.pkg.dev
 # docker push us-central1-docker.pkg.dev/swift-radar-399606/my-repo/node-app
 
-# docker pull mongo
-# docker tag mongo us-central1-docker.pkg.dev/swift-radar-399606/my-repo/mongo
-# docker push us-central1-docker.pkg.dev/swift-radar-399606/my-repo/mongo
+# sudo docker pull mongo:5.0.15
+# docker tag mongo:5.0.15 us-central1-docker.pkg.dev/swift-radar-399606/my-repo/mongo:5.0.15
+# docker push us-central1-docker.pkg.dev/swift-radar-399606/my-repo/mongo:5.0.15
 
 # docker pull cvallance/mongo-k8s-sidecar
 # docker tag cvallance/mongo-k8s-sidecar us-central1-docker.pkg.dev/swift-radar-399606/my-repo/cvallance/mongo-k8s-sidecar

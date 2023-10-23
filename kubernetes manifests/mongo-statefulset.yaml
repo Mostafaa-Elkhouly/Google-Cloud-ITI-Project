@@ -17,7 +17,7 @@ spec:
       terminationGracePeriodSeconds: 10
       containers:
         - name: mongo
-          image: us-central1-docker.pkg.dev/swift-radar-399606/my-repo/mongo
+          image: us-central1-docker.pkg.dev/swift-radar-399606/my-repo/mongo:5.0.15
           env:
             - name: MONGO_INITDB_ROOT_USERNAME
               valueFrom:
@@ -49,6 +49,10 @@ spec:
           env:
             - name: MONGO_SIDECAR_POD_LABELS
               value: "role=mongo,environment=test"
+      volumes:
+        - name: mongo-keyfile
+          secret:
+            secretName: mongo-keyfile-secret
   volumeClaimTemplates:
   - metadata:
       name: mongo-persistent-storage
@@ -59,7 +63,3 @@ spec:
       resources:
         requests:
           storage: 50Gi
-  volumes:
-  - name: mongo-keyfile
-    secret:
-      secretName: mongo-keyfile-secret
