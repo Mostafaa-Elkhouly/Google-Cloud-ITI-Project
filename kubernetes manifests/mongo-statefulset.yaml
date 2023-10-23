@@ -33,6 +33,7 @@ spec:
             - mongod
             - "--replSet"
             - rs0
+            - "--auth"   # Enable authentication
           ports:
             - containerPort: 27017
           volumeMounts:
