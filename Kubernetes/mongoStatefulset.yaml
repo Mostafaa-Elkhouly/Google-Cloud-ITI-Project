@@ -3,7 +3,7 @@ kind: StatefulSet
 metadata:
   name: mongo
 spec:
-  serviceName: "mongo-service"
+  serviceName: "mongo"
   replicas: 3
   selector:
     matchLabels:
@@ -50,7 +50,9 @@ spec:
             - name: MONGO_SIDECAR_POD_LABELS
               value: "app=mongo,environment=dev"
             - name: KUBERNETES_MONGO_SERVICE_NAME
-              value: "mongo-service"
+              value: "mongo"
+            - name: KUBE_NAMESPACE
+              value: "default"
             - name: MONGODB_USERNAME
               valueFrom:
                 secretKeyRef:
@@ -72,7 +74,7 @@ spec:
   - metadata:
       name: mongo-persistent-storage
       annotations:
-        volume.beta.kubernetes.io/storage-class: "fast-ssd"
+        volume.beta.kubernetes.io/storage-class: "fast"
     spec:
       accessModes: [ "ReadWriteOnce" ]
       resources:
