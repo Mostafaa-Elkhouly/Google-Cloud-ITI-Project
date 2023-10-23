@@ -3,7 +3,6 @@ sudo apt-get update
 
 sudo apt-get install kubectl
 sudo apt-get install google-cloud-sdk-gke-gcloud-auth-plugin
-gcloud container clusters get-credentials privatecluster --region us-east1 --project swift-radar-399606
 
 # Install Docker
 sudo apt install -y docker.io
@@ -11,6 +10,8 @@ sudo apt install -y docker.io
 # Start and enable Docker service
 sudo systemctl start docker
 sudo systemctl enable docker
+
+# gcloud container clusters get-credentials privatecluster --region us-east1 --project swift-radar-399606
 
 # git clone https://github.com/Mostafaa-Elkhouly/Google-Cloud-ITI-Project.git
 # docker build -t node-app .
@@ -26,9 +27,8 @@ sudo systemctl enable docker
 # docker tag cvallance/mongo-k8s-sidecar us-central1-docker.pkg.dev/swift-radar-399606/my-repo/cvallance/mongo-k8s-sidecar
 # docker push us-central1-docker.pkg.dev/swift-radar-399606/my-repo/cvallance/mongo-k8s-sidecar
 
+# openssl rand -base64 768 > keyfile.txt
 # docker build -t mongodb .
 # docker tag mongodb us-central1-docker.pkg.dev/swift-radar-399606/my-repo/mongodb
 # gcloud auth configure-docker us-central1-docker.pkg.dev
 # docker push us-central1-docker.pkg.dev/swift-radar-399606/my-repo/mongodb
-
-# openssl rand -base64 768 > keyfile.txt

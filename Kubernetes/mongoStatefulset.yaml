@@ -24,8 +24,8 @@ spec:
           volumeMounts:
             - name: mongo-persistent-storage
               mountPath: /data/db 
-            - name: config-volume
-              mountPath: /etc/mongo
+            # - name: config-volume
+            #   mountPath: /etc/mongo
           env:
             - name: MONGO_INITDB_ROOT_USERNAME
               valueFrom:
@@ -65,10 +65,10 @@ spec:
                   key: password
             - name: MONGODB_DATABASE
               value: "admin"
-      volumes:
-        - name: config-volume
-          configMap:
-            name: mongo-config
+      # volumes:
+      #   - name: config-volume
+      #     configMap:
+      #       name: mongo-config
 
   volumeClaimTemplates:
   - metadata:
