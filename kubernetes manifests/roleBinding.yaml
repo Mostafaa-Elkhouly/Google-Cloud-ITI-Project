@@ -5,8 +5,8 @@ metadata:
   namespace: default
 subjects:
 - kind: ServiceAccount
-  name: mongo-sa
+  name: cluster-service-account
 roleRef:
-- kind: Role
-  name: role
+  kind: Role
+  name: myrole
   apiGroup: rbac.authorization.k8s.io

@@ -22,7 +22,7 @@ spec:
             - name: WEBport
               value: "3000"
             - name: DBhosts
-              value: mongo-service:27017
+              value: mongo
             - name: DBuser
               valueFrom:
                 secretKeyRef:
